@@ -1,5 +1,9 @@
 #include <iostream>
 #include <cmath>
+#include <cctype>
+#include <ctime>
+#include <stdlib.h>
+
 using namespace std;
 
 void playGame();
@@ -12,6 +16,8 @@ const int IGNORE_CHARS = 256;
 
 int main(){
 
+	srand((unsigned int) time(NULL));
+
 	do{
 		playGame();
 	}while(wantToPlayAgain());
@@ -20,7 +26,7 @@ int main(){
 
 void playGame(){
 	const int UPPER_BOUND = 100;
-	int secretNumber = 85;
+	int secretNumber = rand() % UPPER_BOUND; 
 	int numberOfTries = ceil(log2(UPPER_BOUND));
 	int guess = 0;
 
@@ -59,6 +65,10 @@ bool wantToPlayAgain(){
 			cin.ignore(IGNORE_CHARS,'\n');
 			cout<<"Input error! Please try again."<<endl;
 			failure = true;
+		}else{
+
+			cin.ignore(IGNORE_CHARS,'\n');
+			input = tolower(input);
 		}
 	}while(failure);
 	
